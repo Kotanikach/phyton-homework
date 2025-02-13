@@ -1,0 +1,74 @@
+# 1. Привести различные способы создания объектов типа Series
+# Для создания Series можно использовать
+# - списки Python или массивы NumPy
+# - скалярные значение
+# - словари
+data = [10, 20, 30, 40]
+s = pd.Series(data)
+s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+arr = np.array([1.5, 2.5, 3.5])
+s = pd.Series(arr)
+
+s = pd.Series(5, index=['a', 'b', 'c'])
+
+data = {'a': 100, 'b': 200, 'c': 300}
+s = pd.Series(data)
+
+# 2. Привести различные способы создания объектов типа DataFrame
+# DataFrame. Способы создания
+# - через объекты Series
+# - списки словарей
+# - словари объектов Series
+# - двумерный массив NumPy
+# - структурированный массив Numpy
+s1 = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+s2 = pd.Series([40, 50, 60], index=['a', 'b', 'c'])
+df = pd.DataFrame({'Col1': s1, 'Col2': s2})
+
+data = [
+    {'Name': 'Alice', 'Age': 25, 'Salary': 50000},
+    {'Name': 'Bob', 'Age': 30, 'Salary': 60000},
+    {'Name': 'Charlie', 'Age': 35, 'Salary': 70000}
+]
+df = pd.DataFrame(data)
+
+s1 = pd.Series([10, 20, 30], index=['A', 'B', 'C'])
+s2 = pd.Series([100, 200, 300], index=['A', 'B', 'C'])
+df = pd.DataFrame({'Column1': s1, 'Column2': s2})
+
+data = np.array([[1, 2, 3], [4, 5, 6]])
+df = pd.DataFrame(data, columns=['A', 'B', 'C'])
+
+dtype = [('Name', 'U10'), ('Age', 'i4'), ('Salary', 'f4')]
+data = np.array([('Alice', 25, 50000.0), ('Bob', 30, 60000.0), ('Charlie', 35, 70000.0)], dtype=dtype)
+df = pd.DataFrame(data)
+
+# 3. Объедините два объекта Series с неодинаковыми множествами ключей (индексов) так, чтобы вместо NaN было установлено значение 1
+s1 = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+s2 = pd.Series([40, 50, 60], index=['b', 'c', 'd'])
+df = s1.add(s2, fill_value=1)
+или
+df = pd.DataFrame({'Col1': s1, 'Col2': s2})
+df_filled = df.fillna(1)
+
+# 4. Переписать пример с транслированием для DataFrame так, чтобы вычитание происходило по СТОЛБЦАМ
+df_result = df.sub(df.iloc[0], axis=1)
+
+# 5. На примере объектов DataFrame продемонстрируйте использование методов ffill() и bfill()
+df = pd.DataFrame(
+    [
+        [1, 2, 3, np.nan, None, pd.NA],
+        [1, 2, 3, None, 5, 6],
+        [1, np.nan, 3, None, np.nan, 6],
+])
+df_ffill = df.ffill()
+#   0    1  2   3    4     5
+0  1  2.0  3 NaN  NaN  <NA>
+1  1  2.0  3 NaN  5.0     6
+2  1  2.0  3 NaN  5.0     6#
+
+df_bfill = df.bfill()
+#   0    1  2   3    4  5
+0  1  2.0  3 NaN  5.0  6
+1  1  2.0  3 NaN  5.0  6
+2  1  NaN  3 NaN  NaN  6#
