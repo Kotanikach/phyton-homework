@@ -1,9 +1,5 @@
 import numpy as np
-import matplotlib as mpl
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-from IPython.core.pylabtools import figsize
 
 # 1
 x = np.array([1, 5, 10, 15, 20])
@@ -14,7 +10,7 @@ plt.plot(x, y1, 'r-o', label='line 1')
 plt.plot(x, y2, 'g-.o', label='line 2')
 
 plt.legend()
-# plt.show()
+plt.show()
 
 
 # 2
