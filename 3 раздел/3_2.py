@@ -132,8 +132,8 @@ n = len(x)
 # iterations = 100_000
 #
 # for i in range(iterations):
-#     D_w0 = 2 * sum(y[i] - w0 - w1 * x[i] for i in range(n))
-#     D_w1 = 2 * sum((x[i] * (-y[i] - w0 - w1 * x[i])) for i in range(n))
+#     D_w0 = 2 * sum(-y[i] + w0 + w1 * x[i] for i in range(n))
+#     D_w1 = 2 * sum((x[i] * (-y[i] + w0 + w1 * x[i])) for i in range(n))
 #     w1 -= L * D_w1
 #     w0 -= L * D_w0
 # print(w1, w0)
